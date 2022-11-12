@@ -5,8 +5,91 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Labb3_NET22.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="500" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <Style x:Key="itemstyle" TargetType="{x:Type ListViewItem}">
+            <EventSetter Event="MouseDoubleClick" Handler="MouseDoubleClick_OnSelectedQuestion" />
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
-        <Label Content="Edit view works!"></Label>
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="4">
+            <ListView Name="LvQuiz" ItemContainerStyle="{StaticResource itemstyle}" Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="4" Margin="5">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" Width="30" DisplayMemberBinding="{Binding Id}"/>
+                        <GridViewColumn Header="Statement" Width="100" DisplayMemberBinding="{Binding Statement}" />
+                        <GridViewColumn Header="Answer 1" Width="100" DisplayMemberBinding="{Binding Answer1}" />
+                        <GridViewColumn Header="Answer 2" Width="100" DisplayMemberBinding="{Binding Answer2}" />
+                        <GridViewColumn Header="Answer 3" Width="100" DisplayMemberBinding="{Binding Answer3}" />
+                        <GridViewColumn Header="Correct Answer" Width="90" DisplayMemberBinding="{Binding CorrectAnswer}" />
+                        <GridViewColumn Header="Category" Width="90" DisplayMemberBinding="{Binding Category}" />
+                        <GridViewColumn Header="Image Path" Width="100" DisplayMemberBinding="{Binding ImagePath}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </DockPanel>
+        <DockPanel Grid.Column="3" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="4">
+            <StackPanel Background="#FFECF2F5" Margin="5">
+                <DockPanel Margin="10,0" Height="50">
+                    <StackPanel Width="30" Margin="0,0,5,0">
+                        <Label >ID</Label>
+                        <TextBox x:Name="SelectedQuestionIdTextBox"></TextBox>
+                    </StackPanel>
+                    <StackPanel Margin="5,0,0,0">
+                        <Label Margin="10,0">Statement</Label>
+                        <TextBox x:Name="SelectedQuestionStatementTextBox" ></TextBox>
+                    </StackPanel>
+                </DockPanel>
+
+                <Label Margin="10,0">Answer 1</Label>
+                <TextBox x:Name="SelectedQuestionAnswer1TextBox" Margin="10,0"></TextBox>
+                <Label Margin="10,0">Answer 2</Label>
+                <TextBox x:Name="SelectedQuestionAnswer2TextBox" Margin="10,0"></TextBox>
+                <Label Margin="10,0">Answer 3</Label>
+                <TextBox x:Name="SelectedQuestionAnswer3TextBox" Margin="10,0"></TextBox>
+                <DockPanel Margin="10,0" Height="50">
+                    <StackPanel Width="190" Margin="0,0,5,0">
+                        <Label>Correct answer</Label>
+                        <ComboBox x:Name="SelectedQuestionCorrectAnswerComboBox" ItemsSource="{Binding CorrectAnswerArray}"></ComboBox>
+                    </StackPanel>
+                    <StackPanel Margin="5,0,0,0">
+                        <Label>Category</Label>
+                        <ComboBox x:Name="SelectedQuestionCategoryComboBox" ItemsSource="{Binding CategoriesArray}"></ComboBox>
+                    </StackPanel>
+                </DockPanel>
+      
+                <Label Margin="10,0">Image</Label>
+                <DockPanel Width="300" Height="140" >
+                    <Image x:Name="SelectedQuestionImage"  Width="195" Height="130"></Image>
+                    <Button x:Name="SelectedQuestionChooseImageButton" Click="SelectedQuestionChooseImageButton_OnClick" Width="85" Height="20" Margin="1">Choose image</Button>
+                </DockPanel>
+
+            </StackPanel>
+        </DockPanel>
+
+        <ComboBox x:Name="SelectQuizComboBox" SelectedValuePath="Id" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100"
+                   Margin="0,0,5,0" SelectionChanged="SelectQuizComboBox_OnSelectionChanged" SelectedIndex="0" ></ComboBox>
+
+        <Button x:Name="SaveButton" Click="SaveButton_OnClick" Grid.Row="0" Grid.Column="5" Width="100" Height="22" Margin="0,0,5,0">Save</Button>
     </Grid>
 </UserControl>

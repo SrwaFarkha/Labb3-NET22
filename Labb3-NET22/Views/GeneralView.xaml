@@ -3,19 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Labb3_NET22"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:Labb3_NET22.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
-                            ObjectType="{x:Type sys:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="local:Categories"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-    </UserControl.Resources>
-
+             d:DesignHeight="500" d:DesignWidth="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -23,11 +13,9 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            <ColumnDefinition/>
-
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="40"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -35,19 +23,33 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <ComboBox x:Name="SelectQuizComboBox" SelectionChanged="SelectQuizComboBox_OnSelectionChanged"
+                  Grid.Row="0" Grid.Column="1"  VerticalAlignment="Center" HorizontalContentAlignment="Center" Width="120"></ComboBox>
 
-        <ComboBox x:Name="SelectCategoriesCombobox"  Grid.Column="2" Grid.Row="3" 
-                  Grid.ColumnSpan="2" Margin =" 20" >
+        <ComboBox x:Name="SelectCategoryComboBox" ItemsSource="{Binding Categories}" SelectionChanged="SelectCategoryComboBox_OnSelectionChanged" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120"></ComboBox>
+        <Button x:Name="StartButton" Command="{Binding PlayCommand}" Grid.Row="0" Grid.Column="3" Width="100"  Height="23">Start</Button>
 
-        </ComboBox >
+        <Label x:Name="ResultLabel" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" Margin="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="24" FontWeight="Bold" ></Label>
+        <Label x:Name="CorrectAnswerLabel" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Bottom" FontSize="18" FontWeight="Bold" ></Label>
+        <Button x:Name="ButtonPlayAgain" Command="{Binding ButtonPlayAgainCommand}" Content="Restart quiz" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3" HorizontalContentAlignment="Center" Width="100" Height="30"/>
+
+            <StackPanel x:Name="StackPanelQuizCard" Grid.Row="1" Grid.RowSpan="5" Grid.Column="0" Grid.ColumnSpan="5" >
+            <Image x:Name="ImageBox" Height="200" Width="300"></Image>
+            <Label x:Name="QuestionCountLabel" Content="" Margin="3" HorizontalContentAlignment="Center" FontSize="16" FontWeight="Bold" />
+            <TextBlock x:Name="StatementTextBlock" Text="" Margin="0,3,0,15"  Width="500" Height="40" FontSize="14" TextWrapping="Wrap" FontWeight="Bold" TextAlignment="Center" ></TextBlock>
 
 
-        <ComboBox x:Name="SelectQuizCombobox" ItemsSource="{Binding Path=Quizzes}" DisplayMemberPath="Title" Grid.Column="2" Grid.Row="2" 
-                  Grid.ColumnSpan="2" Margin =" 20" >
+            <StackPanel >
+                <Button x:Name="AnswerInput1" Command="{Binding Answer1Command }" HorizontalContentAlignment="Left" Margin="5" Width="350" Height="20" Background="#FFCFF1F7"/>
+                <Button x:Name="AnswerInput2" Command="{Binding Answer2Command }" HorizontalContentAlignment="Left" Margin="5" Width="350" Height="20" Background="#FFCFF1F7"/>
+                <Button x:Name="AnswerInput3" Command="{Binding Answer3Command }" HorizontalContentAlignment="Left" Margin="0,5,0,0" Width="350" Height="20" Background="#FFCFF1F7"/>
+            </StackPanel>
 
-        </ComboBox >
+            <TextBlock  x:Name="CurrentCorrectAnswerTextBlock" Width="100" FontSize="12" FontWeight="Bold" HorizontalAlignment="Right" Text="" Foreground="DarkGreen" />
+            <TextBlock x:Name="CurrentWrongAnswerTextBlock" Width="100" FontSize="12"  FontWeight="Bold" HorizontalAlignment="Right" Text="" Foreground="Red" />
+  
 
-
+        </StackPanel>
 
     </Grid>
 </UserControl>

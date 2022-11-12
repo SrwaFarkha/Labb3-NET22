@@ -8,8 +8,8 @@ namespace Labb3_NET22
 {
     public enum Categories
     {
-        Movies,
-        Books,
+        Addition,
+        Subtraction,
         General
     }
 }

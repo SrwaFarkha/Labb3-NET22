@@ -3,22 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Labb3_NET22"
-        xmlns:viewmodels="clr-namespace:Labb3_NET22.ViewModels"
-        xmlns:views="clr-namespace:Labb3_NET22.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Window.Resources>
-        <DataTemplate x:Name="redViewTemplate" DataType="{x:Type viewmodels:GeneralViewModel}">
-            <views:GeneralView DataContext="{Binding}"/>
-        </DataTemplate>
-        <DataTemplate x:Name="blueViewTemplate" DataType="{x:Type viewmodels:EditViewModel}">
-            <views:EditView DataContext="{Binding}"/>
-        </DataTemplate>
-        <DataTemplate x:Name="orangeViewTemplate" DataType="{x:Type viewmodels:AddViewModel}">
-            <views:AddView DataContext="{Binding}"/>
-        </DataTemplate>
-    </Window.Resources>
+        Title="Quiz Game" Height="500" Width="800" Background="Gainsboro">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -44,10 +30,6 @@
         </DockPanel>
 
         <ContentControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="5" Content="{Binding}"/>
-        <TextBlock x:Name="WelcomeText" FontSize="36" Grid.Column="1" Grid.ColumnSpan="4" Margin="42,48,42,48" Grid.RowSpan="3" TextAlignment="Center" Grid.Row="1" FontFamily="Arial Rounded MT Bold" Foreground="Black"><Run Text="Welcome to the quiz game!"/><LineBreak/><Run Language="sv-se" Text="Please click general to play"/></TextBlock>
-
-
-
-
+        <TextBlock x:Name="WelcomeText" FontSize="36" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="2" TextAlignment="Center" Grid.Row="1" ><Run Text="Welcome to the quiz game!"/><LineBreak/><Run Language="sv-se" Text="Please click general to play"/></TextBlock>
     </Grid>
 </Window>

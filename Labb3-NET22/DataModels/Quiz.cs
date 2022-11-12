@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+using Labb3_NET22.Views;
 
 namespace Labb3_NET22.DataModels;   
 
@@ -17,25 +20,49 @@ public class Quiz
         _questions = new List<Question>();
     }
 
-    public Quiz(int Id, List<Question> questions, string title)
+    public Quiz (int Id, List<Question> questions, string title)
     {
-        _id = Id; 
-        _questions = questions; 
-        _title = title;   
+        _id = Id;
+        _questions = questions;
+        _title = title;
     }
 
-    public Question GetRandomQuestion()
+
+    public Question? GetRandomQuestion(string? category)
     {
-        throw new NotImplementedException("A random Question needs to be returned here!");
+        var random = new Random();
+        var notAskedQuestions = _questions.ToList()
+            .FindAll(q => !q.IsAsked && q.Category.ToString() == category || category == "All" && !q.IsAsked);
+
+        if (notAskedQuestions.Count == 0) 
+            return null;
+
+        var result = notAskedQuestions[random.Next(notAskedQuestions.Count)];
+        return result;
     }
 
-    public void AddQuestion(string statement, int correctAnswer, params string[] answers)
+    public void AddQuestion(int id, string statement, int correctAnswer, string imagePath, Categories category, params string[] answers)
     {
-        throw new NotImplementedException("Question need to be instantiated and added to list of questions here!");
+        _questions.ToList().Add(new Question
+        {
+            Id = id,
+            Statement = statement,
+            Answers = answers,
+            CorrectAnswer = correctAnswer,
+            ImagePath = imagePath,
+            Category = category,
+            IsAsked = false
+        });
     }
 
     public void RemoveQuestion(int index)
     {
-        throw new NotImplementedException("Question at requested index need to be removed here!");
+        var questions = _questions.ToList();
+
+        if (questions.Count <= index)
+            return;
+
+        var temp = questions[index];
+        questions.Remove(temp);
     }
 }

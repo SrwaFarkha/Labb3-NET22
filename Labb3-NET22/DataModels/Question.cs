@@ -2,23 +2,26 @@
 
 public class Question
 {
-
     public int Id { get; set; }
-    public string Statement { get; }
-    public string[] Answers { get; }
-    public int CorrectAnswer { get; }
-    public Categories Categories { get; set; }
-    public string ImagePath { get; set; }
+    public string Statement { get; set; } = null!;
+    public string[] Answers { get; set; } = null!;
+    public int CorrectAnswer { get; set; }
+    public string ImagePath { get; set; } = null!;
+    public Categories Category { get; set; }
+    public bool IsAsked { get; set; }
 
-    public Question(int id, string statement, string[] answers, int correctAnswer, Categories categories, string imagePath)
+    public Question()
+    {
+        
+    }
+
+    public Question(int id, string statement, string[] answers, int correctAnswer, string imagePath, Categories category)
     {
         Id = id;
         Statement = statement;
         Answers = answers;
         CorrectAnswer = correctAnswer;
-        Categories = categories;
         ImagePath = imagePath;
+        Category = category;
     }
-
-
 }
